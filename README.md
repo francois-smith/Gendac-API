@@ -8,7 +8,6 @@
 </div>
 <br/>
 
-<!-- TABLE OF CONTENTS -->
 <details>
   <summary>Table of Contents</summary>
   <ol>
@@ -25,14 +24,12 @@
         <li><a href="#installation">Installation</a></li>
       </ul>
     </li>
+    <li><a href="#layout">Layout</a></li>
     <li><a href="#usage">Usage</a></li>
     <li><a href="#contact">Contact</a></li>
   </ol>
 </details>
 
-
-
-<!-- ABOUT THE PROJECT -->
 ## About The Project
 
 This project must have a web api using ASP.NET with basic CRUD events. For my choice of tools I went for a .NET core api bundled with React.js for visuals. This will showcase my knowledge in react and also my ability to quickly adopt a new toolset in a short period of time with ASP.NET.
@@ -44,7 +41,6 @@ This project must have a web api using ASP.NET with basic CRUD events. For my ch
 * [![Net][Asp.net]][Net-url]
 
 
-<!-- GETTING STARTED -->
 ## Getting Started
 
 This is an example of how you may give instructions on setting up your project locally.
@@ -74,29 +70,65 @@ Make sure you have the latest LTS version of node installed. You can download it
    const API_KEY = 'ENTER YOUR API';
    ```
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+## Layout
 
+The application is set up using a react front end and a .NET core backend. The front end is set up to use the backend api to perform CRUD operations on the database. The front end is also set up to use a bootstrap theme for styling. All of the code is contained in the ProficiencyAssessment folder.
 
-<!-- USAGE EXAMPLES -->
+### Backend
+* Program.cs - This is the entry point for the application, it sets up the api endpoints and CORS rules.
+* Models/ - This folder contains the data transfer objects, such as products.
+* Controllers/ - This folder contains the controllers for the api endpoints.
+
+Within ClientApp/src is the setupProxy file which is used to proxy the api calls to the backend.
+
+### Frontend
+All of the frontend code is contained within the ClientApp folder.
+
+* aspnetcore-https.js - This file is used to set up the HTTPS for the application using the ASP.NET Core HTTPS certificate.
+* public/ - This folder contains the index.html file which is the entry point for the react application.
+* src/ - This folder contains all of the react code.
+  * components/ - This folder contains all of the react components.
+  * App.js - This file is used to link together all of the components.
+  * index.js - This file renders the react application to the DOM using index.html.
+
 ## Usage
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
 
-_For more examples, please refer to the [Documentation](https://example.com)_
+### Adding Additional API Endpoints
 
+To add additional API endpoints, you must add a controller to the Controllers folder.
 
+The created controller must inherit from the ControllerBase class, it must also be decorated with the ApiController and Route attribute. The route attribute is used to set the route for the controller.
 
+Example:
+```csharp
+    [ApiController] // This is used to tell the application that this is a controller
+    [Route("[controller]")] // This is used to set the route for the controller
+    public class ItemController : ControllerBase
+    {
+        // Controller code
+    }
+```
 
-<!-- CONTACT -->
+To creat a basic get request, create a method that is decorated with the HttpGet attribute, to add a route for the method use the route decorator. This method must return an IActionResult, this is used to return the data to the client. The IActionResult can be created using the Ok method, which takes in data to be returned.
+
+Example:
+```csharp
+    [HttpGet] //Defines the method as a get request
+    [Route("GetItems")] //Defines the route for the get request i.e. api/ItemController/GetItems
+    public IActionResult Get()
+    {
+        var items = new items[]
+        return Ok(items); //Returns the items to the client
+    }
+```
+
 ## Contact
 
 Francois Smith - contact@francois-smith.com
 
 Project Link: [https://github.com/francois-smith/Gendac-API](https://github.com/francois-smith/Gendac-API)
 
-
-<!-- MARKDOWN LINKS & IMAGES -->
-<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 [React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
 [React-url]: https://reactjs.org/
 [Asp.net]: https://img.shields.io/badge/.NET-5C2D91?style=for-the-badge&logo=.net&logoColor=white
